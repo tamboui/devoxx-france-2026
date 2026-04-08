@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Devoxx France 2026</title>
+
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/reset.css" />
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/black.css" />
+
+    <!-- Syntax highlighting -->
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <!-- Title slide -->
+        <section>
+          <h1>Devoxx France 2026</h1>
+          <p>Your talk title goes here</p>
+          <aside class="notes">
+            Speaker notes go here.
+          </aside>
+        </section>
+
+        <!-- Agenda -->
+        <section>
+          <h2>Agenda</h2>
+          <ul>
+            <li class="fragment">Introduction</li>
+            <li class="fragment">Topic 1</li>
+            <li class="fragment">Topic 2</li>
+            <li class="fragment">Demo</li>
+            <li class="fragment">Conclusion</li>
+          </ul>
+        </section>
+
+        <!-- Section with vertical slides -->
+        <section>
+          <section>
+            <h2>Topic 1</h2>
+            <p>Overview of the first topic</p>
+          </section>
+          <section>
+            <h2>Topic 1 — Details</h2>
+            <p>Deep dive into the details</p>
+          </section>
+        </section>
+
+        <!-- Code example -->
+        <section>
+          <h2>Code Example</h2>
+          <pre><code class="language-java" data-trim data-noescape>
+public class HelloDevoxx {
+    public static void main(String[] args) {
+        System.out.println("Hello Devoxx France 2026!");
+    }
+}
+          </code></pre>
+        </section>
+
+        <!-- Conclusion -->
+        <section>
+          <h2>Conclusion</h2>
+          <ul>
+            <li class="fragment">Key takeaway 1</li>
+            <li class="fragment">Key takeaway 2</li>
+            <li class="fragment">Key takeaway 3</li>
+          </ul>
+        </section>
+
+        <!-- Thank you -->
+        <section>
+          <h2>Thank You!</h2>
+          <p>Questions?</p>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="node_modules/reveal.js/dist/reveal.js"></script>
+    <script src="node_modules/reveal.js/dist/plugin/notes.js"></script>
+    <script src="node_modules/reveal.js/dist/plugin/markdown.js"></script>
+    <script src="node_modules/reveal.js/dist/plugin/highlight.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>

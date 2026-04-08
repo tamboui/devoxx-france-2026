@@ -1,0 +1,22 @@
+{
+  "name": "devoxx-france-2026",
+  "version": "1.0.0",
+  "description": "Devoxx France 2026 presentation built with reveal.js",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamboui/devoxx-france-2026.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tamboui/devoxx-france-2026/issues"
+  },
+  "homepage": "https://github.com/tamboui/devoxx-france-2026#readme",
+  "dependencies": {
+    "reveal.js": "^6.0.0"
+  }
+}
