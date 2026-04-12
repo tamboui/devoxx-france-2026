@@ -3,7 +3,6 @@
 :icons: font
 :imagesdir: images
 :revealjs_theme: black
-:docinfo: shared
 :customcss: css/tamboui.css
 :revealjs_slideNumber: c/t
 :revealjs_transition: slide

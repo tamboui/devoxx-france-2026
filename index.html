@@ -432,7 +432,7 @@ ul.byline li + li {
   }
 </style></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>TamboUI</h1><h2>making 2026 the Year of Java in the Terminal</h2><p class="byline">
   <span class="author">Cédric Champeau &amp; Max Rydahl Andersen</span>
-  </p></section><section data-background-iframe="https://www.youtube.com/embed/ERAp2vRHX3M?autoplay=1&controls=0&modestbranding=1&enablejsapi=1"><div class="slide-content"><aside class="notes"><div class="paragraph"><p>Hit play before the intro. Full blast. Walk on stage mid-chorus.</p></div></aside></div></section>
+  </p></section><section data-background-iframe="https://www.youtube.com/embed/ERAp2vRHX3M?autoplay=1&controls=0&modestbranding=1"><div class="slide-content"><aside class="notes"><div class="paragraph"><p>Hit play before the intro. Full blast. Walk on stage mid-chorus.</p></div></aside></div></section>
 <section><div class="slide-content"><div class="paragraph huge"><p><strong>Yes. We just Rickrolled Devoxx France.</strong></p></div>
 <div class="paragraph fragment"><p>And if you didn&#8217;t expect that&#8230;&#8203;<br>
 you probably didn&#8217;t expect Java to be cool in the terminal either.</p></div>
@@ -794,60 +794,4 @@ Reveal.addEventListener('ready', function () {
 });
 Reveal.addEventListener('resize', function () {
   layoutSlideContents(960, 700)
-});</script><script>
-// Auto-advance when the YouTube opener video ends.
-//
-// YouTube's postMessage API requires two steps:
-//  1. Find the background iframe reveal.js created and send it an
-//     "addEventListener" command so it starts emitting state events.
-//  2. Listen for those events; playerState 0 = ended → Reveal.next().
-
-(function () {
-  var subscribed = false;
-
-  function subscribeToYouTube() {
-    // reveal.js puts background iframes inside .slide-background elements
-    var iframe = document.querySelector('.slide-background:first-child iframe');
-    if (!iframe) return false;
-
-    function send() {
-      try {
-        iframe.contentWindow.postMessage(JSON.stringify({
-          event: 'command',
-          func: 'addEventListener',
-          args: ['onStateChange']
-        }), 'https://www.youtube.com');
-        subscribed = true;
-      } catch (e) { /* iframe not ready yet */ }
-    }
-
-    // Send as soon as the iframe reports loaded, and once right now in
-    // case it is already loaded (e.g. after a page refresh).
-    iframe.addEventListener('load', send);
-    send();
-    return true;
-  }
-
-  // Poll until reveal.js has created the background iframe.
-  var poll = setInterval(function () {
-    if (subscribeToYouTube()) clearInterval(poll);
-  }, 200);
-
-  // Listen for YouTube postMessage events.
-  window.addEventListener('message', function (event) {
-    if (event.origin !== 'https://www.youtube.com') return;
-    try {
-      var data = JSON.parse(event.data);
-      // Format 1: {"event":"onStateChange","info":0}
-      if (data.event === 'onStateChange' && data.info === 0) {
-        Reveal.next();
-      }
-      // Format 2: {"event":"infoDelivery","info":{"playerState":0}}
-      if (data.event === 'infoDelivery' &&
-          data.info && data.info.playerState === 0) {
-        Reveal.next();
-      }
-    } catch (e) { /* ignore non-JSON messages */ }
-  });
-}());
-</script></body></html>
+});</script></body></html>
