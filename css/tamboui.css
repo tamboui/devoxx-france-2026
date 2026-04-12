@@ -1,0 +1,229 @@
+/*
+ * TamboUI Reveal.js theme override
+ * Colors sourced directly from tamboui.dev
+ *
+ * --bg-primary:       #0a0e27
+ * --bg-secondary:     #141b2d
+ * --bg-tertiary:      #1e2838
+ * --accent-primary:   #00d4ff  (cyan)
+ * --accent-secondary: #7c3aed  (purple)
+ * --text-primary:     #e2e8f0
+ * --text-secondary:   #94a3b8
+ * --text-muted:       #64748b
+ * --border-color:     #334155
+ * --code-bg:          #0f172a
+ * --success:          #10b981  (green)
+ * --warning:          #f59e0b
+ */
+
+/* ── Background ───────────────────────────────────────────── */
+
+.reveal-viewport {
+  background: #0a0e27;
+}
+
+.reveal .slides section {
+  background: transparent;
+}
+
+/* Ambient radial glows like the tamboui.dev hero section */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 50%, rgba(124, 58, 237, 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 85% 80%, rgba(0, 212, 255, 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Text ─────────────────────────────────────────────────── */
+
+.reveal {
+  color: #e2e8f0;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+/* ── Headings ─────────────────────────────────────────────── */
+
+.reveal h1,
+.reveal h2 {
+  background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 50%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  text-shadow: none;
+}
+
+.reveal h3,
+.reveal h4 {
+  color: #00d4ff;
+  text-transform: none;
+  text-shadow: none;
+  font-weight: 600;
+}
+
+/* ── Links ────────────────────────────────────────────────── */
+
+.reveal a {
+  color: #00d4ff;
+  text-decoration: none;
+}
+
+.reveal a:hover {
+  color: #7c3aed;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+/* ── Code blocks ──────────────────────────────────────────── */
+
+.reveal pre {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 212, 255, 0.08);
+  width: 100%;
+  margin: 0.5em auto;
+}
+
+.reveal pre code {
+  background: transparent;
+  color: #e2e8f0;
+  font-size: 0.72em;
+  line-height: 1.6;
+  padding: 1em 1.2em;
+  max-height: 480px;
+}
+
+.reveal code {
+  background: #0f172a;
+  color: #00d4ff;
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.88em;
+  border: 1px solid #1e293b;
+}
+
+/* ── Tables ───────────────────────────────────────────────── */
+
+.reveal table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.reveal table th {
+  background: rgba(0, 212, 255, 0.1);
+  color: #00d4ff;
+  border: 1px solid #334155;
+  padding: 0.5em 0.8em;
+  font-weight: 600;
+}
+
+.reveal table td {
+  border: 1px solid #334155;
+  padding: 0.45em 0.8em;
+  color: #e2e8f0;
+}
+
+.reveal table tr:nth-child(even) td {
+  background: rgba(20, 27, 45, 0.5);
+}
+
+/* ── Blockquote ───────────────────────────────────────────── */
+
+.reveal blockquote {
+  background: rgba(0, 212, 255, 0.06);
+  border-left: 4px solid #00d4ff;
+  border-radius: 0 8px 8px 0;
+  padding: 0.8em 1.2em;
+  width: 90%;
+  box-shadow: none;
+  font-style: normal;
+  color: #94a3b8;
+}
+
+/* ── Lists ────────────────────────────────────────────────── */
+
+.reveal ul,
+.reveal ol {
+  margin-left: 1.2em;
+}
+
+.reveal ul li::marker {
+  color: #00d4ff;
+}
+
+.reveal ol li::marker {
+  color: #7c3aed;
+}
+
+/* ── Section dividers (background-color slides) ───────────── */
+
+.reveal section[data-background-color="#1a1a2e"],
+.reveal section[data-background-color="#0d2137"] {
+  border-left: 4px solid #00d4ff;
+}
+
+/* ── Progress bar & controls ──────────────────────────────── */
+
+.reveal .progress {
+  background: rgba(0, 212, 255, 0.15);
+  height: 3px;
+}
+
+.reveal .progress span {
+  background: linear-gradient(90deg, #00d4ff, #7c3aed);
+}
+
+.reveal .controls {
+  color: #00d4ff;
+}
+
+/* ── Slide number ─────────────────────────────────────────── */
+
+.reveal .slide-number {
+  background: rgba(10, 14, 39, 0.8);
+  color: #64748b;
+  font-size: 0.7em;
+  border-top: 1px solid #334155;
+  border-left: 1px solid #334155;
+  border-radius: 4px 0 0 0;
+  padding: 3px 8px;
+}
+
+/* ── Utility classes ──────────────────────────────────────── */
+
+.reveal .huge {
+  font-size: 2.2em;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 50%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.reveal .lead {
+  color: #94a3b8;
+  font-size: 1.1em;
+}
+
+.reveal .small {
+  color: #64748b;
+  font-size: 0.8em;
+}
+
+/* ── Speaker notes ────────────────────────────────────────── */
+
+.speaker-notes {
+  background: #141b2d;
+  color: #94a3b8;
+}

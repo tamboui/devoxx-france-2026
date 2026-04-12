@@ -1,0 +1,127 @@
+// ─────────────────────────────────────────────
+// CÉDRIC'S SECTION — HIGHER LEVEL
+// ─────────────────────────────────────────────
+
+[background-color="#0d2137"]
+== The higher levels
+
+[.lead]
+Where it gets fun
+
+=== TuiRunner: stop writing boilerplate
+
+[source,java]
+----
+try (var tui = TuiRunner.create()) {
+    tui.run(
+        (event, runner) -> switch (event) {
+            case KeyEvent k when k.isQuit() -> { runner.quit(); yield false; }
+            default -> false;
+        },
+        frame -> {
+            frame.renderWidget(myWidget, frame.area());
+        }
+    );
+}
+----
+
+[%step]
+Event loop, terminal setup, redraws — all handled. +
+You write: *event handling* and *rendering*. That's it.
+
+=== Mouse + animation
+
+[source,java]
+----
+var config = TuiConfig.builder()
+    .mouseCapture(true)
+    .tickRate(Duration.ofMillis(16))  // ~60fps
+    .build();
+
+try (var tui = TuiRunner.create(config)) {
+    tui.run(
+        (event, runner) -> switch (event) {
+            case MouseEvent m -> { handleMouse(m); yield true; }
+            case TickEvent t  -> { updateAnimation(t); yield true; }
+            // ...
+        },
+        frame -> render(frame)
+    );
+}
+----
+
+=== The Toolkit DSL
+
+[source,java]
+----
+try (var runner = ToolkitRunner.create()) {
+    runner.run(() ->
+        vBox(
+            markupText("[bold]My App[/bold]"),
+            hBox(
+                sidebar(),
+                mainContent()
+            ),
+            statusBar()
+        )
+    );
+}
+----
+
+[%step]
+Declarative. Composable. Automatic focus management and event routing.
+
+=== CSS in the terminal
+
+[source,css]
+----
+/* app.tcss */
+.sidebar {
+    width: 30%;
+    border: solid green;
+}
+
+.selected {
+    background: #005fd7;
+    color: white;
+    text-style: bold;
+}
+----
+
+[source,java]
+----
+runner.loadStylesheet("app.tcss");
+runner.switchTheme("dark");  // at runtime!
+----
+
+[%step]
+Separate style from logic. Switch themes live. Your designer will thank you.
+
+=== GraalVM native
+
+[source,bash]
+----
+# Build a native executable — no JVM required to run
+./gradlew nativeCompile
+
+# Result: a ~10MB binary, starts in milliseconds
+./build/native/nativeCompile/myapp
+----
+
+[%step]
+TamboUI ships with all the GraalVM metadata out of the box. +
+Zero config for reflection, serialization, resources.
+
+=== JFR tracing
+
+Because we're Java, we get this for free:
+
+[source,bash]
+----
+jcmd <pid> JFR.start name=tamboui settings=profile duration=60s filename=tamboui.jfr
+----
+
+[%step]
+Events: `dev.tamboui.terminal.draw`, `dev.tamboui.toolkit.route`, +
+focus changes, drag state, event routing... +
+Profile your TUI like any other Java app. 🔥

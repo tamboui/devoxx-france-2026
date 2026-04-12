@@ -1,0 +1,15 @@
+{
+  "aliases": {
+    "revealadoc": {
+      "script-ref": "asciidoctorj@asciidoctor",
+      "arguments": [
+        "-r",
+        "asciidoctor-revealjs",
+        "-b",
+        "revealjs",
+        "-a",
+        "revealjsdir\u003dhttps://cdn.jsdelivr.net/npm/reveal.js@5.2.0"
+      ]
+    }
+  }
+}

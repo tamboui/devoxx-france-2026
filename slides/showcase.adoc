@@ -1,0 +1,24 @@
+// ─────────────────────────────────────────────
+// SHOWCASE
+// ─────────────────────────────────────────────
+
+== What's already been built
+
+[NOTE.speaker]
+--
+Show real apps built with TamboUI. Walk through 2-3 examples.
+Link back to the "Year of Java" narrative — this is WHY we're here.
+--
+
+// Add screenshots/demos of known apps here
+
+== Try the demos
+
+[source,bash]
+----
+jbang demos@tamboui
+----
+
+[%step]
+That's the whole installation. No setup. No version wrangling. +
+**JBang handles everything.**

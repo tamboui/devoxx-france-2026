@@ -1,0 +1,31 @@
+= TamboUI: making 2026 the Year of Java in the Terminal
+:author: Cédric Champeau & Max Rydahl Andersen
+:icons: font
+:imagesdir: images
+:revealjs_theme: black
+:docinfo: shared
+:customcss: css/tamboui.css
+:revealjs_slideNumber: c/t
+:revealjs_transition: slide
+:revealjs_transitionSpeed: fast
+:revealjs_totalTime: 2700
+// uncomment for speaker notes view:
+// :revealjs_showNotes: true
+
+include::slides/opener.adoc[]
+
+include::slides/title.adoc[]
+
+include::slides/problem.adoc[]
+
+include::slides/origin.adoc[]
+
+include::slides/stack-overview.adoc[]
+
+include::slides/lower-level.adoc[]
+
+include::slides/higher-level.adoc[]
+
+include::slides/showcase.adoc[]
+
+include::slides/closing.adoc[]

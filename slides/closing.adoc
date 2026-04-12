@@ -1,0 +1,32 @@
+// ─────────────────────────────────────────────
+// CALL TO ACTION + CLOSING
+// ─────────────────────────────────────────────
+
+== The ecosystem needs you
+
+[%step]
+* 🔨 **Build something** — a dashboard, a log viewer, an AI chat interface
+* 📝 **Blog about it** — show the world Java can do this
+* 🌍 **Distribute it** — JBang for quick runs, JReleaser for releases
+* ⭐ **Contribute** — it's experimental, APIs will change, feedback welcome
+
+[%step]
+We need our *ratatui moment*. +
+This is it.
+
+[%notitle]
+== !
+
+[.huge]
+tamboui.dev
+
+[.lead]
+`jbang demos@tamboui`
+
+[.small]
+github.com/tamboui/tamboui
+
+[NOTE.speaker]
+--
+End with energy. "2026 IS the year. Let's go."
+--

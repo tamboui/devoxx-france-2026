@@ -1,0 +1,28 @@
+// ─────────────────────────────────────────────
+// THE STACK OVERVIEW
+// ─────────────────────────────────────────────
+
+== Three layers, one stack
+
+[cols="^1,^1,^1", options="header"]
+|===
+| High Level | Mid Level | Low Level
+| **Toolkit DSL** | **TuiRunner** | **Immediate Mode**
+| Declarative, component-based | Managed event loop | You own everything
+| CSS styling, focus mgmt | Handles setup & redraws | Maximum control
+|===
+
+[%step]
+Pick what fits your style. Or go all the way down.
+
+== Three backends
+
+[cols="^1,^1,^1", options="header"]
+|===
+| JLine 3 | Panama | Aesh
+| Widest compatibility | Direct native access | Red Hat pedigree
+| Java 8+ | Java 22+ | Java 8+
+|===
+
+[%step]
+Same API. Swap the backend. Works everywhere Java runs.

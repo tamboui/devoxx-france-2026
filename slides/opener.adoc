@@ -1,0 +1,28 @@
+// ─────────────────────────────────────────────
+// OPENER — Rickroll, then walk on stage
+// ─────────────────────────────────────────────
+
+[%notitle, background-iframe="https://www.youtube.com/embed/ERAp2vRHX3M?autoplay=1&controls=0&modestbranding=1&enablejsapi=1", background-interactive=true]
+== !
+
+[NOTE.speaker]
+--
+Hit play before the intro. Full blast. Walk on stage mid-chorus.
+--
+
+// ─────────────────────────────────────────────
+
+[%notitle]
+== !
+
+[.huge]
+*Yes. We just Rickrolled Devoxx France.*
+
+[.fragment]
+And if you didn't expect that... +
+you probably didn't expect Java to be cool in the terminal either.
+
+[NOTE.speaker]
+--
+Let it land. Pause. Then: "That's kind of the whole point of this talk."
+--

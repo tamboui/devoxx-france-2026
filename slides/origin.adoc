@@ -1,0 +1,36 @@
+// ─────────────────────────────────────────────
+// ORIGIN STORY
+// ─────────────────────────────────────────────
+
+== How TamboUI was born
+
+A Bluesky post. That's it.
+
+[NOTE.speaker]
+--
+Cédric tells the story: asked what TUI library Claude Code uses. Max answered: Ratatui (Rust).
+Both thought: "it's a bit sad there's no such library for Java." And then... we built it.
+--
+
+[quote, Cédric Champeau, Bluesky]
+____
+Which TUI library is Claude Code using?
+____
+
+[%step]
+→ Max: "Probably Ratatui — it's Rust" +
+→ Both: "...why isn't there a Java equivalent?" +
+→ _[3 months of coding later]_
+
+== tamboui.dev
+
+image::tamboui_logo_vertical_gradient.svg[TamboUI logo, width=300]
+
+[.lead]
+An open-source Terminal UI framework for the Java ecosystem. +
+Just launched. 🎉
+
+[source]
+----
+jbang demos@tamboui
+----
