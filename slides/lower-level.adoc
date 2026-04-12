@@ -2,12 +2,19 @@
 // MAX'S SECTION — LOWER LEVEL
 // ─────────────────────────────────────────────
 
+Things to cover:
+- basic render contract
+- widgets
+- markup
+- theme? 
+- jfr?
+
 [background-color="#1a1a2e"]
 == The lower levels
-
+ 
 [.lead]
 What's actually happening down there
-
+ 
 === Talking to a terminal
 
 * Terminals speak **VT/ANSI escape sequences** +

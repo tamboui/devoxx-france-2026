@@ -19,8 +19,7 @@ Hit play before the intro. Full blast. Walk on stage mid-chorus.
 *Yes. We just Rickrolled Devoxx France.*
 
 [.fragment]
-And if you didn't expect that... +
-you probably didn't expect Java to be cool in the terminal either.
+Using Java in the terminal!
 
 [NOTE.speaker]
 --

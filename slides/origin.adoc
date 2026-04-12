@@ -26,10 +26,6 @@ ____
 
 image::tamboui_logo_vertical_gradient.svg[TamboUI logo, width=300]
 
-[.lead]
-An open-source Terminal UI framework for the Java ecosystem. +
-Just launched. 🎉
-
 [source]
 ----
 jbang demos@tamboui

@@ -5,14 +5,13 @@
 == Java is everywhere
 
 [%step]
-* Running the world's banking systems ✅
+* Running the world's financial systems ✅
 * Powering Android ✅
 * Handling billions of transactions ✅
 * Building beautiful terminal tools...
 
 [%step]
-[.fragment]
-🦗
+pass:[<div class="cricket">🦗</div>]
 
 [NOTE.speaker]
 --
@@ -25,7 +24,7 @@ Set up the irony. Java is everywhere — except where developers hang out and ha
 * AI tools live in the terminal
 * Developer workflows are CLI-first again
 * Rust has **Ratatui**
-* Python has **Textual** and **Rich**
+* Python has **Textual**/**Rich**
 * Go has **Charm** / Bubble Tea
 
 [%step]
@@ -34,8 +33,8 @@ All written in... everything but Java.
 == The old excuses
 
 [%step]
-* "Java is too slow to start" → *Try GraalVM native. Milliseconds.*
-* "Too much ceremony" → *JBang: one file, zero build config.*
+* "Java is too slow to start" → *Java is fast, GraalVM even faster. Milliseconds.*
+* "Too much ceremony" → *JBang: one command, run anything.*
 * "Distribution is a nightmare" → *JReleaser: one command, everywhere.*
 * "Not good for scripting" → *Modern Java disagrees.*
 

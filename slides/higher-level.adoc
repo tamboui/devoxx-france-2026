@@ -4,7 +4,7 @@
 
 [background-color="#0d2137"]
 == The higher levels
-
+  
 [.lead]
 Where it gets fun
 
