@@ -28,7 +28,7 @@ jobs:
           java-version: '25'
 
       - name: Setup JBang
-        uses: jbangdev/setup-jbang@v0
+        uses: jbangdev/setup-jbang@v0.1.1
         with:
           version: latest
           setup-java: false
