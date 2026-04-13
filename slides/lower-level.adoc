@@ -1,19 +1,17 @@
 // ─────────────────────────────────────────────
-// MAX'S SECTION — LOWER LEVEL
+// MAX'S SECTION: LOWER LEVEL
 // ─────────────────────────────────────────────
-
-Things to cover:
-- basic render contract
-- widgets
-- markup
-- theme? 
-- jfr?
+// Things to cover: basic render contract, widgets, markup, theme, jfr
 
 [background-color="#1a1a2e"]
 == The lower levels
- 
+
 [.lead]
 What's actually happening down there
+
+* **Backends**: VT/ANSI, raw mode, the OS-specific mess
+* **Buffer, Cell, Rect**: diff-based rendering primitives
+* **Layout + Widgets**: constraint-based flex, 20+ widgets out of the box
  
 === Talking to a terminal
 
@@ -22,7 +20,6 @@ What's actually happening down there
 * Input: key events, mouse events, resize signals
 * Different on every OS and terminal emulator 🙃
 
-[%step]
 That's what the **backends** abstract away.
 
 === The backend contract
@@ -39,7 +36,6 @@ try (var terminal = Terminal.create()) {   // picks best available
 }
 ----
 
-[%step]
 AutoCloseable. Works with try-with-resources. Very Java.
 
 === Core types: Buffer, Cell, Rect
@@ -52,11 +48,10 @@ var buffer = Buffer.empty(Rect.of(0, 0, 80, 24));
 // A Cell has a symbol and a Style
 buffer.set(0, 0, Cell.of("H", Style.builder().fg(Color.RED).bold().build()));
 
-// Rect: x, y, width, height — used everywhere for layout
+// Rect: x, y, width, height, used everywhere for layout
 var area = Rect.of(10, 5, 60, 14);
 ----
 
-[%step]
 Diff-based rendering: only changed cells are sent to the terminal.
 
 === Layout: constraints
@@ -72,7 +67,6 @@ var layout = Layout.horizontal(
 Rect[] rects = layout.split(frame.area());
 ----
 
-[%step]
 Flexbox-inspired. Responsive. No CSS headaches.
 
 === Immediate Mode: the raw loop
@@ -90,17 +84,15 @@ try (var tui = ImmediateTui.create()) {
 }
 ----
 
-[%step]
 Every frame: clear, re-render everything, diff, push to terminal.
 
 === Widgets
 
-[%step]
-* `Paragraph` — styled text with wrapping
-* `List` — scrollable item lists
-* `Table` — tabular data with column constraints
-* `Gauge` / `LineGauge` — progress bars
-* `Chart` — sparklines, bar charts
-* `Canvas` — pixel-level drawing
-* `Image` — yes, actual images in the terminal
+* `Paragraph`: styled text with wrapping
+* `List`: scrollable item lists
+* `Table`: tabular data with column constraints
+* `Gauge` / `LineGauge`: progress bars
+* `Chart`: sparklines, bar charts
+* `Canvas`: pixel-level drawing
+* `Image`: yes, actual images in the terminal
 * `Calendar`, `Spinner`, and more...

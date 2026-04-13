@@ -17,8 +17,7 @@ ____
 Which TUI library is Claude Code using?
 ____
 
-[%step]
-→ Max: "Probably Ratatui — it's Rust" +
+→ Max: "Probably Ratatui. It's Rust." +
 → Both: "...why isn't there a Java equivalent?" +
 → _[3 months of coding later]_
 

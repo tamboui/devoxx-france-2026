@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────
-// OPENER — Rickroll, then walk on stage
+// OPENER: Rickroll, then walk on stage
 // ─────────────────────────────────────────────
 
 [%notitle, background-iframe="https://www.youtube.com/embed/ERAp2vRHX3M?autoplay=1&controls=0&modestbranding=1", background-interactive=true]

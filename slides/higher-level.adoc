@@ -1,127 +1,205 @@
 // ─────────────────────────────────────────────
-// CÉDRIC'S SECTION — HIGHER LEVEL
+// CÉDRIC'S SECTION: HIGHER LEVEL
 // ─────────────────────────────────────────────
 
 [background-color="#0d2137"]
 == The higher levels
-  
+
 [.lead]
 Where it gets fun
 
-=== TuiRunner: stop writing boilerplate
+* **TuiRunner**: the event loop, done right
+* **Toolkit**: declarative UI, CSS, focus management
+* **GraalVM + JFR**: because it's still Java
+
+// ─────────────────────────────────────────────
+// TuiRunner
+// ─────────────────────────────────────────────
+
+=== TuiRunner: what you stop writing
+
+* Poll / parse / dispatch event loop
+* Resize → debounced redraw (no flicker on drag)
+* Tick events for animation, disabled when you don't need them
+* Thread-safe `runOnRenderThread` + a managed scheduler
+* Pluggable `RenderErrorHandler`: crashes don't wreck the terminal
+
+[.small]
+The pieces every TUI framework rewrites badly. You get them once, right.
+
+=== TuiRunner: the whole app
 
 [source,java]
 ----
+int[] count = {0};
 try (var tui = TuiRunner.create()) {
     tui.run(
         (event, runner) -> switch (event) {
             case KeyEvent k when k.isQuit() -> { runner.quit(); yield false; }
+            case KeyEvent k when k.isUp()   -> { count[0]++; yield true; }
+            case KeyEvent k when k.isDown() -> { count[0]--; yield true; }
             default -> false;
         },
-        frame -> {
-            frame.renderWidget(myWidget, frame.area());
-        }
+        frame -> frame.renderWidget(
+            Paragraph.of("Count: " + count[0]).centered(),
+            frame.area())
     );
 }
 ----
 
-[%step]
-Event loop, terminal setup, redraws — all handled. +
-You write: *event handling* and *rendering*. That's it.
+A complete, resizable, crash-safe counter app. ~15 lines of body.
 
-=== Mouse + animation
+=== TuiRunner: config knobs
 
 [source,java]
 ----
 var config = TuiConfig.builder()
     .mouseCapture(true)
-    .tickRate(Duration.ofMillis(16))  // ~60fps
+    .tickRate(Duration.ofMillis(16))        // ~60 fps
+    .resizeGracePeriod(Duration.ofMillis(250))
+    .bindings(BindingSets.vim())            // hjkl out of the box
+    .errorHandler(RenderErrorHandlers.displayAndQuit())
     .build();
 
 try (var tui = TuiRunner.create(config)) {
-    tui.run(
-        (event, runner) -> switch (event) {
-            case MouseEvent m -> { handleMouse(m); yield true; }
-            case TickEvent t  -> { updateAnimation(t); yield true; }
-            // ...
-        },
-        frame -> render(frame)
-    );
+    tui.scheduleRepeating(Duration.ofSeconds(1), this::pollBackend);
+    tui.run(this::onEvent, this::render);
 }
 ----
 
-=== The Toolkit DSL
+`scheduleRepeating` runs on the scheduler thread. +
+Use `tui.runOnRenderThread(...)` to mutate UI state safely.
+
+=== TuiRunner: error handling, for real
 
 [source,java]
 ----
-try (var runner = ToolkitRunner.create()) {
-    runner.run(() ->
-        vBox(
-            markupText("[bold]My App[/bold]"),
-            hBox(
-                sidebar(),
-                mainContent()
-            ),
-            statusBar()
-        )
-    );
+TuiConfig.builder()
+    .errorHandler(RenderErrorHandlers.displayAndQuit())
+    .build();
+----
+
+Exception in a widget? The framework catches it, renders a
+*scrollable stack trace inside your TUI*, and exits cleanly. +
+No mysterious "terminal stuck in raw mode" after a crash.
+
+// ─────────────────────────────────────────────
+// Toolkit DSL
+// ─────────────────────────────────────────────
+
+=== Toolkit: the next step up
+
+With TuiRunner you still render frame-by-frame. +
+Toolkit lets you describe the UI from state, and handles the rest:
+
+* You return a tree of `Element` from your state; the runner diffs it
+* Automatic **focus management** (Tab / Shift+Tab)
+* Automatic **event routing**: events go to the focused element
+* `@OnAction` handlers: no manual key wiring
+* CSS styling with `:focus`, `:hover` pseudo-classes
+* Hot theme switching at runtime
+
+=== Toolkit: a complete app
+
+[source,java]
+----
+public class CounterApp extends ToolkitApp {
+    private int count = 0;
+
+    @Override
+    protected Element render() {
+        return column(
+            panel(text("Count: " + count).bold().cyan())
+                .title("Counter").rounded().fill(),
+            panel(text(" ↑/↓: change  q: quit ").dim())
+                .rounded().length(3)
+        );
+    }
+
+    @OnAction(Actions.MOVE_UP)   void inc() { count++; }
+    @OnAction(Actions.MOVE_DOWN) void dec() { count--; }
+
+    public static void main(String[] args) throws Exception {
+        new CounterApp().run();
+    }
 }
 ----
 
-[%step]
-Declarative. Composable. Automatic focus management and event routing.
+No event loop. No frame rendering. No key parsing. +
+Pure state → UI tree.
+
+=== Toolkit: composition
+
+[source,java]
+----
+@Override
+protected Element render() {
+    return column(
+        header(),
+        row(sidebar().length(30), mainContent().fill()),
+        statusBar().length(1)
+    ).fill();
+}
+
+private Element sidebar() {
+    return panel(
+        list()
+            .add(text("Inbox"))
+            .add(text("Sent"))
+            .highlightSymbol("> ")
+            .focusable().id("nav")
+    ).title("Folders").rounded();
+}
+----
+
+Elements are plain Java values. +
+`header()`, `sidebar()`, `mainContent()` are just methods returning `Element`.
 
 === CSS in the terminal
 
 [source,css]
 ----
 /* app.tcss */
-.sidebar {
-    width: 30%;
-    border: solid green;
-}
+.sidebar        { width: 30%; border: solid green; }
 
-.selected {
-    background: #005fd7;
-    color: white;
-    text-style: bold;
-}
+#nav:focus      { border-type: double; border-color: cyan; }
+#nav:hover      { background: #1e2838; }
+
+.item:selected  { background: #005fd7; color: white; text-style: bold; }
 ----
 
 [source,java]
 ----
 runner.loadStylesheet("app.tcss");
-runner.switchTheme("dark");  // at runtime!
+runner.switchTheme("dark");   // at runtime, live!
 ----
 
-[%step]
-Separate style from logic. Switch themes live. Your designer will thank you.
+Pseudo-classes. Themes. No recompile. +
+Your designer can edit a `.tcss` file while the app is running.
+
+// ─────────────────────────────────────────────
+// Cross-cutting niceties
+// ─────────────────────────────────────────────
 
 === GraalVM native
 
 [source,bash]
 ----
-# Build a native executable — no JVM required to run
 ./gradlew nativeCompile
-
-# Result: a ~10MB binary, starts in milliseconds
-./build/native/nativeCompile/myapp
+./build/native/nativeCompile/myapp     # ~10 MB, starts in ms
 ----
 
-[%step]
-TamboUI ships with all the GraalVM metadata out of the box. +
-Zero config for reflection, serialization, resources.
+TamboUI ships the GraalVM reachability metadata. +
+Zero config for reflection, resources, serialization.
 
-=== JFR tracing
-
-Because we're Java, we get this for free:
+=== JFR tracing, because it's Java
 
 [source,bash]
 ----
-jcmd <pid> JFR.start name=tamboui settings=profile duration=60s filename=tamboui.jfr
+jcmd <pid> JFR.start name=tamboui \
+    settings=profile duration=60s filename=tamboui.jfr
 ----
 
-[%step]
 Events: `dev.tamboui.terminal.draw`, `dev.tamboui.toolkit.route`, +
-focus changes, drag state, event routing... +
+focus changes, drag state, event routing… +
 Profile your TUI like any other Java app. 🔥
