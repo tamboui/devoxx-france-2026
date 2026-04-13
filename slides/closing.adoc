@@ -4,13 +4,11 @@
 
 == The ecosystem needs you
 
-[%step]
-* 🔨 **Build something** — a dashboard, a log viewer, an AI chat interface
-* 📝 **Blog about it** — show the world Java can do this
-* 🌍 **Distribute it** — JBang for quick runs, JReleaser for releases
-* ⭐ **Contribute** — it's experimental, APIs will change, feedback welcome
+* 🔨 **Build something**: a dashboard, a log viewer, an AI chat interface
+* 📝 **Blog about it**: show the world Java can do this
+* 🌍 **Distribute it**: JBang for quick runs, JReleaser for releases
+* ⭐ **Contribute**: it's experimental, APIs will change, feedback welcome
 
-[%step]
 We need our *ratatui moment*. +
 This is it.
 

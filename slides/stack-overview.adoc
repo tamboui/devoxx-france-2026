@@ -8,11 +8,10 @@
 |===
 | High Level | Mid Level | Low Level
 | **Toolkit DSL** | **TuiRunner** | **Immediate Mode**
-| Declarative, component-based | Managed event loop | You own everything
-| CSS styling, focus mgmt | Handles setup & redraws | Maximum control
+| Declarative, CSS, focus mgmt | Managed event loop | You own everything
 |===
 
-[%step]
+[.lead]
 Pick what fits your style. Or go all the way down.
 
 == Three backends
@@ -24,5 +23,5 @@ Pick what fits your style. Or go all the way down.
 | Java 8+ | Java 22+ | Java 8+
 |===
 
-[%step]
+[.lead]
 Same API. Swap the backend. Works everywhere Java runs.
