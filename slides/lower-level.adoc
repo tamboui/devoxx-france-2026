@@ -26,14 +26,7 @@ That's what the **backends** abstract away.
 
 [source,java]
 ----
-// All three backends implement the same Terminal interface
-try (var terminal = Terminal.create()) {   // picks best available
-    terminal.enterAlternateScreen();
-    terminal.enableRawMode();
-    terminal.enableMouseCapture();
-    // ...
-    terminal.exitAlternateScreen();
-}
+include::../snippets/lower/BackendDemo.java[tag=backend,indent=0]
 ----
 
 AutoCloseable. Works with try-with-resources. Very Java.
@@ -42,14 +35,7 @@ AutoCloseable. Works with try-with-resources. Very Java.
 
 [source,java]
 ----
-// A Buffer is a 2D grid of Cells
-var buffer = Buffer.empty(Rect.of(0, 0, 80, 24));
-
-// A Cell has a symbol and a Style
-buffer.set(0, 0, Cell.of("H", Style.builder().fg(Color.RED).bold().build()));
-
-// Rect: x, y, width, height, used everywhere for layout
-var area = Rect.of(10, 5, 60, 14);
+include::../snippets/lower/BufferDemo.java[tag=buffer,indent=0]
 ----
 
 Diff-based rendering: only changed cells are sent to the terminal.
@@ -58,13 +44,7 @@ Diff-based rendering: only changed cells are sent to the terminal.
 
 [source,java]
 ----
-var layout = Layout.horizontal(
-    Constraint.percentage(30),   // sidebar
-    Constraint.min(20),          // main content, at least 20 cols
-    Constraint.length(10)        // fixed-width panel
-);
-
-Rect[] rects = layout.split(frame.area());
+include::../snippets/lower/LayoutDemo.java[tag=layout,indent=0]
 ----
 
 Flexbox-inspired. Responsive. No CSS headaches.
@@ -73,15 +53,7 @@ Flexbox-inspired. Responsive. No CSS headaches.
 
 [source,java]
 ----
-try (var tui = ImmediateTui.create()) {
-    tui.run(frame -> {
-        var para = Paragraph.builder()
-            .text(Text.from("Hello, TamboUI!"))
-            .block(Block.builder().borders(Borders.ALL).build())
-            .build();
-        frame.renderWidget(para, frame.area());
-    });
-}
+include::../snippets/lower/ImmediateDemo.java[tag=immediate,indent=0]
 ----
 
 Every frame: clear, re-render everything, diff, push to terminal.

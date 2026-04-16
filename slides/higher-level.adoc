@@ -31,20 +31,7 @@ The pieces every TUI framework rewrites badly. You get them once, right.
 
 [source,java]
 ----
-int[] count = {0};
-try (var tui = TuiRunner.create()) {
-    tui.run(
-        (event, runner) -> switch (event) {
-            case KeyEvent k when k.isQuit() -> { runner.quit(); yield false; }
-            case KeyEvent k when k.isUp()   -> { count[0]++; yield true; }
-            case KeyEvent k when k.isDown() -> { count[0]--; yield true; }
-            default -> false;
-        },
-        frame -> frame.renderWidget(
-            Paragraph.of("Count: " + count[0]).centered(),
-            frame.area())
-    );
-}
+include::../snippets/tui/CounterRunner.java[tag=counter,indent=0]
 ----
 
 A complete, resizable, crash-safe counter app. ~15 lines of body.
@@ -53,30 +40,17 @@ A complete, resizable, crash-safe counter app. ~15 lines of body.
 
 [source,java]
 ----
-var config = TuiConfig.builder()
-    .mouseCapture(true)
-    .tickRate(Duration.ofMillis(16))        // ~60 fps
-    .resizeGracePeriod(Duration.ofMillis(250))
-    .bindings(BindingSets.vim())            // hjkl out of the box
-    .errorHandler(RenderErrorHandlers.displayAndQuit())
-    .build();
-
-try (var tui = TuiRunner.create(config)) {
-    tui.scheduleRepeating(Duration.ofSeconds(1), this::pollBackend);
-    tui.run(this::onEvent, this::render);
-}
+include::../snippets/tui/TuiRunnerConfigDemo.java[tag=config,indent=0]
 ----
 
-`scheduleRepeating` runs on the scheduler thread. +
+`scheduleAtFixedRate` runs on the scheduler thread. +
 Use `tui.runOnRenderThread(...)` to mutate UI state safely.
 
 === TuiRunner: error handling, for real
 
 [source,java]
 ----
-TuiConfig.builder()
-    .errorHandler(RenderErrorHandlers.displayAndQuit())
-    .build();
+include::../snippets/tui/ErrorHandlerDemo.java[tag=error,indent=0]
 ----
 
 Exception in a widget? The framework catches it, renders a
@@ -103,26 +77,7 @@ Toolkit lets you describe the UI from state, and handles the rest:
 
 [source,java]
 ----
-public class CounterApp extends ToolkitApp {
-    private int count = 0;
-
-    @Override
-    protected Element render() {
-        return column(
-            panel(text("Count: " + count).bold().cyan())
-                .title("Counter").rounded().fill(),
-            panel(text(" ↑/↓: change  q: quit ").dim())
-                .rounded().length(3)
-        );
-    }
-
-    @OnAction(Actions.MOVE_UP)   void inc() { count++; }
-    @OnAction(Actions.MOVE_DOWN) void dec() { count--; }
-
-    public static void main(String[] args) throws Exception {
-        new CounterApp().run();
-    }
-}
+include::../snippets/toolkit/CounterApp.java[tag=counter,indent=0]
 ----
 
 No event loop. No frame rendering. No key parsing. +
@@ -132,24 +87,7 @@ Pure state → UI tree.
 
 [source,java]
 ----
-@Override
-protected Element render() {
-    return column(
-        header(),
-        row(sidebar().length(30), mainContent().fill()),
-        statusBar().length(1)
-    ).fill();
-}
-
-private Element sidebar() {
-    return panel(
-        list()
-            .add(text("Inbox"))
-            .add(text("Sent"))
-            .highlightSymbol("> ")
-            .focusable().id("nav")
-    ).title("Folders").rounded();
-}
+include::../snippets/toolkit/ComposeDemo.java[tag=render,indent=0]
 ----
 
 Elements are plain Java values. +
