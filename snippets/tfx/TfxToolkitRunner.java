@@ -14,8 +14,8 @@ public final class TfxToolkitRunner {
     private TfxToolkitRunner() {}
 
     public static void run() throws Exception {
-        ToolkitEffects effects = new ToolkitEffects();
-        TuiConfig config = TuiConfig.builder().build();
+        var effects = new ToolkitEffects();
+        var config = TuiConfig.builder().build();
 
         // tag::runner[]
         try (var runner = ToolkitRunner.builder()

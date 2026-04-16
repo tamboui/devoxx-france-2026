@@ -13,6 +13,7 @@
 :revealjs_transition: slide
 :revealjs_transitionSpeed: fast
 :revealjs_totalTime: 2700
+:revealjs_hash: true
 // uncomment for speaker notes view:
 // :revealjs_showNotes: true
 
@@ -29,6 +30,10 @@ include::slides/stack-overview.adoc[]
 include::slides/lower-level.adoc[]
 
 include::slides/higher-level.adoc[]
+
+include::slides/css.adoc[]
+
+include::slides/java-niceties.adoc[]
 
 include::slides/showcase.adoc[]
 

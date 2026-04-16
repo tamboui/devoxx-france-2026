@@ -2,6 +2,12 @@
 // SHOWCASE
 // ─────────────────────────────────────────────
 
+[%notitle, background-color="#2e1a2e"]
+== !
+
+[.huge]
+Demos
+
 == Demos, all runnable with JBang
 
 [.lead]
