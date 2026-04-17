@@ -1,0 +1,18 @@
+<script>
+(function() {
+  var lastModified = null;
+  var interval = 1000;
+  function check() {
+    fetch(window.location.href, { method: 'HEAD', cache: 'no-store' })
+      .then(function(r) {
+        var lm = r.headers.get('last-modified');
+        if (lastModified && lm !== lastModified) {
+          window.location.reload();
+        }
+        lastModified = lm;
+      })
+      .catch(function() {});
+  }
+  setInterval(check, interval);
+})();
+</script>

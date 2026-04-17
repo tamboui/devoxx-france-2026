@@ -231,6 +231,31 @@ body::before {
   font-size: 0.8em;
 }
 
+/* ── Bio photos ─────────────────────────────────────────── */
+
+.reveal .bio-photo img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reveal .bio-photo.purple img {
+  border: 2px solid #7c3aed;
+  box-shadow: 0 0 16px rgba(124, 58, 237, 0.4);
+}
+
+.reveal .bio-photo.cyan img {
+  border: 2px solid #00d4ff;
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.4);
+}
+
+.reveal .cyan {
+  color: #00d4ff;
+}
+
+.reveal .has-text-center {
+  text-align: center;
+}
+
 /* ── Speaker notes ────────────────────────────────────────── */
 
 .speaker-notes {
