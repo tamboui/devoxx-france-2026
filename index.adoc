@@ -14,6 +14,7 @@
 :revealjs_transitionSpeed: fast
 :revealjs_totalTime: 2700
 :revealjs_hash: true
+:docinfo: shared-footer
 // uncomment for speaker notes view:
 // :revealjs_showNotes: true
 

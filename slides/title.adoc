@@ -2,11 +2,30 @@
 // TITLE
 // ─────────────────────────────────────────────
 
+[.columns]
 == TamboUI
 
-[.lead]
-Making 2026 the Year of Java in the Terminal
+[.column.has-text-center]
+--
+image::cedric-champeau.png[Cédric Champeau,160,160,role=bio-photo purple]
 
-[.small]
-Cédric Champeau • Max Rydahl Andersen +
-Devoxx France 2026
+*Cédric Champeau* +
+[.small]#Principal Engineer @ Oracle# +
+[.small]#GraalVM · Micronaut · Gradle# +
+[.small.cyan]#@CedricChampeau#
+--
+
+[.column.has-text-center]
+--
+image::max-andersen.jpg[Max Rydahl Andersen,160,160,role=bio-photo cyan]
+
+*Max Rydahl Andersen* +
+[.small]#Distinguished Engineer @ Red Hat# +
+[.small]#JBang · Quarkus · Hibernate# +
+[.small.cyan]#@maxandersen#
+--
+
+[NOTE.speaker]
+--
+Quick intros, then dive in.
+--

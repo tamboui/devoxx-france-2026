@@ -273,16 +273,22 @@ public class adoc2reveal implements Callable<Integer> {
         pendingRender = scheduler.schedule(() -> doRender(reason), 180, TimeUnit.MILLISECONDS);
     }
 
-    private void startServer() {
+    private void startServer() throws IOException {
         if (httpServer != null) {
             return;
         }
-        httpServer = SimpleFileServer.createFileServer(
-                new InetSocketAddress(port),
-                rootDir(),
-                SimpleFileServer.OutputLevel.NONE);
-        httpServer.start();
-        enqueueMessage("serving at " + currentUrl());
+        var address = new InetSocketAddress(port);
+        try {
+            httpServer = SimpleFileServer.createFileServer(
+                    address,
+                    rootDir(),
+                    SimpleFileServer.OutputLevel.NONE);
+            httpServer.start();
+            enqueueMessage("serving at " + currentUrl());
+        } catch (Exception e) {
+            httpServer = null;
+            throw new IOException(String.format("failed to start server on %s:%d — %s", address.getHostString(), port, e.getMessage()), e);
+        }
     }
 
     private void stopServer() {
@@ -407,8 +413,14 @@ public class adoc2reveal implements Callable<Integer> {
                     enqueueMessage("watch error: " + e.getMessage());
                 }
             }
-            startServer();
-            openPresentation();
+            try {
+                startServer();
+                openPresentation();
+            } catch (IOException e) {
+                serving = false;
+                serve = false;
+                enqueueMessage(e.getMessage());
+            }
         } else {
             serving = false;
             serve = false;
