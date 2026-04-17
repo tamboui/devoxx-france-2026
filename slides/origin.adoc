@@ -9,7 +9,7 @@
 Origin story
 
 [.columns]
-== How TamboUI was born
+=== How TamboUI was born
 
 [.column]
 --
@@ -32,7 +32,7 @@ Cédric tells the story: asked what TUI library Claude Code uses. Max answered: 
 Both thought: "it's a bit sad there's no such library for Java." And then... we built it.
 --
 
-== 6 days later...
+=== 6 days later...
 
 ++++
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:tsditnhgwsmg7ckowew3diu2/app.bsky.feed.post/3mae3pyw4ek25" data-bluesky-cid="bafyreihxxhp6jvr2sme5iubgipgnhsp2iso2bsg2vhz2xqlhzdzgrp3d2m"><p lang="en">I am mind blown. I asked Claude to port Ratatui to Java, using Gradle, create a demo app and compile it to a native binary. It took 20 minutes. Here&#39;s the demo (this is a native binary compiled using GraalVM using the official native build tools plugin). 🫳🎤
@@ -41,7 +41,7 @@ Both thought: "it's a bit sad there's no such library for Java." And then... we 
 <script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 ++++
 
-== tamboui.dev
+=== tamboui.dev
 
 image::tamboui_logo_vertical_gradient.svg[TamboUI logo, width=300]
 

@@ -14,13 +14,12 @@
 :revealjs_transitionSpeed: fast
 :revealjs_totalTime: 2700
 :revealjs_hash: true
+:revealjs_history: true
 :docinfo: shared-footer
 // uncomment for speaker notes view:
 // :revealjs_showNotes: true
 
 include::slides/opener.adoc[]
-
-include::slides/title.adoc[]
 
 include::slides/problem.adoc[]
 
@@ -32,9 +31,9 @@ include::slides/lower-level.adoc[]
 
 include::slides/higher-level.adoc[]
 
-include::slides/css.adoc[]
+//include::slides/css.adoc[]
 
-include::slides/java-niceties.adoc[]
+//include::slides/java-niceties.adoc[]
 
 include::slides/showcase.adoc[]
 

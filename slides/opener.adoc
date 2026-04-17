@@ -13,7 +13,7 @@ Hit play before the intro. Full blast. Walk on stage mid-chorus.
 // ─────────────────────────────────────────────
 
 [%notitle]
-== !
+=== !
 
 [.huge]
 *Yes. We just Rickrolled Devoxx France.*
@@ -24,4 +24,34 @@ Using Java in the terminal!
 [NOTE.speaker]
 --
 Let it land. Pause. Then: "That's kind of the whole point of this talk."
+--
+
+[.columns]
+=== Speakers
+
+
+[.column.has-text-center]
+--
+image::cedric-champeau.png[Cédric Champeau,160,160,role=bio-photo purple]
+
+*Cédric Champeau* +
+[.small]#Principal Engineer @ Oracle# +
+[.small]#GraalVM · Micronaut · Gradle# +
+[.small.cyan]#@CedricChampeau#
+--
+
+[.column.has-text-center]
+--
+image::max-andersen.jpg[Max Rydahl Andersen,160,160,role=bio-photo cyan]
+
+*Max Rydahl Andersen* +
+[.small]#Distinguished Engineer @ Red Hat# +
+[.small]#STSM @ IBM# +
+[.small]#JBang · Quarkus · Hibernate# +
+[.small.cyan]#@maxandersen#
+--
+
+[NOTE.speaker]
+--
+Quick intros, then dive in.
 --
