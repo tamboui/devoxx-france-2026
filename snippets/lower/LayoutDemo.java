@@ -16,13 +16,13 @@ public final class LayoutDemo {
 
     public static void split(Frame frame) {
         // tag::layout[]
-        Layout layout = Layout.horizontal().constraints(
+        var layout = Layout.horizontal().constraints(
             Constraint.percentage(30),   // sidebar
             Constraint.min(20),          // main content, at least 20 cols
             Constraint.length(10)        // fixed-width panel
         );
 
-        List<Rect> rects = layout.split(frame.area());
+        var rects = layout.split(frame.area());
         // end::layout[]
 
         assert rects.size() == 3;

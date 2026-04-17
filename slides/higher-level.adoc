@@ -3,14 +3,13 @@
 // ─────────────────────────────────────────────
 
 [background-color="#0d2137"]
-== The higher levels
+== Higher level APIs
 
 [.lead]
-Where it gets fun
+Lower level APIs are not what most people want to write.
 
-* **TuiRunner**: the event loop, done right
-* **Toolkit**: declarative UI, CSS, focus management
-* **GraalVM + JFR**: because it's still Java
+* **Runner**: event loop, resize handling, animation ticks, error handling
+* **Toolkit**: declarative UI, focus management
 
 // ─────────────────────────────────────────────
 // TuiRunner
@@ -19,7 +18,7 @@ Where it gets fun
 === TuiRunner: what you stop writing
 
 * Poll / parse / dispatch event loop
-* Resize → debounced redraw (no flicker on drag)
+* Resize → debounced redraw
 * Tick events for animation, disabled when you don't need them
 * Thread-safe `runOnRenderThread` + a managed scheduler
 * Pluggable `RenderErrorHandler`: crashes don't wreck the terminal
@@ -36,7 +35,7 @@ include::../snippets/tui/CounterRunner.java[tag=counter,indent=0]
 
 A complete, resizable, crash-safe counter app. ~15 lines of body.
 
-=== TuiRunner: config knobs
+=== Runner configuration
 
 [source,java]
 ----
@@ -46,7 +45,7 @@ include::../snippets/tui/TuiRunnerConfigDemo.java[tag=config,indent=0]
 `scheduleAtFixedRate` runs on the scheduler thread. +
 Use `tui.runOnRenderThread(...)` to mutate UI state safely.
 
-=== TuiRunner: error handling, for real
+=== Runner error handling
 
 [source,java]
 ----
@@ -61,17 +60,15 @@ No mysterious "terminal stuck in raw mode" after a crash.
 // Toolkit DSL
 // ─────────────────────────────────────────────
 
-=== Toolkit: the next step up
+=== Toolkit: build apps, not plumbing
 
 With TuiRunner you still render frame-by-frame. +
-Toolkit lets you describe the UI from state, and handles the rest:
+Toolkit gives you a DSL so you describe *what*, not *how*:
 
-* You return a tree of `Element` from your state; the runner diffs it
+* `text()`, `panel()`, `row()`, `column()`, `list()`, `markupText()`, ...
 * Automatic **focus management** (Tab / Shift+Tab)
-* Automatic **event routing**: events go to the focused element
-* `@OnAction` handlers: no manual key wiring
-* CSS styling with `:focus`, `:hover` pseudo-classes
-* Hot theme switching at runtime
+* Automatic **event routing** to the focused element
+* `@OnAction` handlers: bind keys without wiring
 
 === Toolkit: a complete app
 
@@ -80,64 +77,10 @@ Toolkit lets you describe the UI from state, and handles the rest:
 include::../snippets/toolkit/CounterApp.java[tag=counter,indent=0]
 ----
 
-No event loop. No frame rendering. No key parsing. +
-Pure state → UI tree.
-
-=== Toolkit: composition
+=== Toolkit: composing a layout
 
 [source,java]
 ----
 include::../snippets/toolkit/ComposeDemo.java[tag=render,indent=0]
 ----
 
-Elements are plain Java values. +
-`header()`, `sidebar()`, `mainContent()` are just methods returning `Element`.
-
-=== CSS in the terminal
-
-[source,css]
-----
-/* app.tcss */
-.sidebar        { width: 30%; border: solid green; }
-
-#nav:focus      { border-type: double; border-color: cyan; }
-#nav:hover      { background: #1e2838; }
-
-.item:selected  { background: #005fd7; color: white; text-style: bold; }
-----
-
-[source,java]
-----
-runner.loadStylesheet("app.tcss");
-runner.switchTheme("dark");   // at runtime, live!
-----
-
-Pseudo-classes. Themes. No recompile. +
-Your designer can edit a `.tcss` file while the app is running.
-
-// ─────────────────────────────────────────────
-// Cross-cutting niceties
-// ─────────────────────────────────────────────
-
-=== GraalVM native
-
-[source,bash]
-----
-./gradlew nativeCompile
-./build/native/nativeCompile/myapp     # ~10 MB, starts in ms
-----
-
-TamboUI ships the GraalVM reachability metadata. +
-Zero config for reflection, resources, serialization.
-
-=== JFR tracing, because it's Java
-
-[source,bash]
-----
-jcmd <pid> JFR.start name=tamboui \
-    settings=profile duration=60s filename=tamboui.jfr
-----
-
-Events: `dev.tamboui.terminal.draw`, `dev.tamboui.toolkit.route`, +
-focus changes, drag state, event routing… +
-Profile your TUI like any other Java app. 🔥

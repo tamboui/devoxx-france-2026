@@ -16,10 +16,10 @@ public final class TfxBasic {
     private TfxBasic() {}
 
     public static void example() {
-        EffectManager effectManager = new EffectManager();
+        var effectManager = new EffectManager();
 
         // tag::basic[]
-        Effect fade = Fx.fadeFromFg(Color.CYAN, 2000, Interpolation.SineInOut)
+        var fade = Fx.fadeFromFg(Color.CYAN, 2000, Interpolation.SineInOut)
             .withFilter(CellFilter.text())
             .withPattern(RadialPattern.center().withTransitionWidth(10f));
 

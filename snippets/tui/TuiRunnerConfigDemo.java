@@ -30,9 +30,6 @@ public final class TuiRunnerConfigDemo {
     }
 
     void configExample() throws Exception {
-        EventHandler onEvent = this::onEvent;
-        Renderer render = this::render;
-
         // tag::config[]
         var config = TuiConfig.builder()
             .mouseCapture(true)
@@ -42,10 +39,10 @@ public final class TuiRunnerConfigDemo {
             .errorHandler(RenderErrorHandlers.displayAndQuit())
             .build();
 
-        try (TuiRunner tui = TuiRunner.create(config)) {
+        try (var tui = TuiRunner.create(config)) {
             tui.scheduler().scheduleAtFixedRate(
                 this::pollBackend, 1, 1, TimeUnit.SECONDS);
-            tui.run(onEvent, render);
+            tui.run(this::onEvent, this::render);
         }
         // end::config[]
     }

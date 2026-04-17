@@ -5,6 +5,7 @@
 //DEPS dev.tamboui:tamboui-toolkit:LATEST
 //DEPS dev.tamboui:tamboui-widgets:LATEST
 //DEPS dev.tamboui:tamboui-annotations:LATEST
+//DEPS dev.tamboui:tamboui-css:LATEST
 //DEPS dev.tamboui:tamboui-tfx:LATEST
 //DEPS dev.tamboui:tamboui-tfx-tui:LATEST
 //DEPS dev.tamboui:tamboui-tfx-toolkit:LATEST

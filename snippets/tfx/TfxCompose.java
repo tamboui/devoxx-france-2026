@@ -16,13 +16,13 @@ public final class TfxCompose {
     public static void example() {
         // tag::compose[]
         // Chain: fade in, then dissolve out
-        Effect intro = Fx.sequence(
+        var intro = Fx.sequence(
             Fx.fadeFromFg(Color.BLACK, 500, Interpolation.QuadOut),
             Fx.dissolve(800, Interpolation.Linear)
         );
 
         // Or run both at once
-        Effect flash = Fx.parallel(
+        var flash = Fx.parallel(
             Fx.fadeToFg(Color.CYAN, 2000, Interpolation.SineInOut),
             Fx.sweepIn(Motion.LEFT_TO_RIGHT, 10, 0, Color.BLUE,
                        2000, Interpolation.QuadOut)

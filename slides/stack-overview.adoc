@@ -2,6 +2,12 @@
 // THE STACK OVERVIEW
 // ─────────────────────────────────────────────
 
+[%notitle, background-color="#1a1a2e"]
+== !
+
+[.huge]
+The stack
+
 == Three layers, one stack
 
 [cols="^1,^1,^1", options="header"]

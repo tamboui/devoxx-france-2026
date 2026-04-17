@@ -2,6 +2,12 @@
 // ORIGIN STORY
 // ─────────────────────────────────────────────
 
+[%notitle, background-color="#1a2e1a"]
+== !
+
+[.huge]
+Origin story
+
 == How TamboUI was born
 
 A Bluesky post. That's it.

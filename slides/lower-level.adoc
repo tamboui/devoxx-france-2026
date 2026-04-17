@@ -3,11 +3,13 @@
 // ─────────────────────────────────────────────
 // Things to cover: basic render contract, widgets, markup, theme, jfr
 
-[background-color="#1a1a2e"]
-== The lower levels
+[%notitle, background-color="#1a1a2e"]
+== !
 
-[.lead]
-What's actually happening down there
+[.huge]
+The lower levels
+
+=== What's down there
 
 * **Backends**: VT/ANSI, raw mode, the OS-specific mess
 * **Buffer, Cell, Rect**: diff-based rendering primitives
