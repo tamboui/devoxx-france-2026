@@ -9,6 +9,36 @@
 [.huge]
 The lower levels
 
+=== Widget
+
+A widget is "something" that can be rendered to a terminal.
+
+[source,java]
+----
+public interface Widget {
+    void render(Rect area, Buffer buffer);
+}
+
+public interface StatefulWidget<S> {
+    void render(Rect area, Buffer buffer, S state);
+}
+----
+
+=== Widget Builders
+
+[source,java]
+----
+include::../snippets/lower/WidgetExample.java[tag=widget-example,indent=0]
+----
+
+Build & Render.
+
+
+[%notitle, background-iframe="https://tamboui.dev/docs/main/demos-widgets.html", background-interactive=true]
+=== Widget Examples
+
+
+
 === What's down there
 
 * **Backends**: VT/ANSI, raw mode, the OS-specific mess
