@@ -1,0 +1,32 @@
+// ─────────────────────────────────────────────
+// GRAALVM + JFR
+// ─────────────────────────────────────────────
+
+[%notitle, background-color="#2e2e1a"]
+== !
+
+[.huge]
+GraalVM + JFR
+
+=== GraalVM native
+
+[source,bash]
+----
+./gradlew nativeCompile
+./build/native/nativeCompile/myapp     # ~10 MB, starts in ms
+----
+
+TamboUI ships the GraalVM reachability metadata. +
+Zero config for reflection, resources, serialization.
+
+=== JFR tracing
+
+[source,bash]
+----
+jcmd <pid> JFR.start name=tamboui \
+    settings=profile duration=60s filename=tamboui.jfr
+----
+
+Events: `dev.tamboui.terminal.draw`, `dev.tamboui.toolkit.route`, +
+focus changes, drag state, event routing… +
+Profile your TUI like any other Java app.

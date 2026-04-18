@@ -1,0 +1,40 @@
+// ─────────────────────────────────────────────
+// CSS — works with TuiRunner AND Toolkit
+// ─────────────────────────────────────────────
+
+[%notitle, background-color="#1a3a2e"]
+== !
+
+[.huge]
+CSS in the terminal
+
+=== StyleEngine
+
+Style your TUI like you style the web.
+
+`StyleEngine` works with TuiRunner and Toolkit alike.
+
+=== TCSS: the syntax
+
+[source,css]
+----
+/* app.tcss */
+.sidebar        { width: 30%; border-type: plain; border-color: green; }
+
+#nav:focus      { border-type: double; border-color: cyan; }
+#nav:hover      { background: #1e2838; }
+
+.item:selected  { background: #005fd7; color: white; text-style: bold; }
+----
+
+Selectors, pseudo-classes, variables, themes. +
+Your can edit a `.tcss` file while the app is running!
+
+=== Themes: load and switch at runtime
+
+[source,java]
+----
+include::../snippets/toolkit/CssDemo.java[tag=css,indent=0]
+----
+
+No recompile. No restart. Hot-swap live.
