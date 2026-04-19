@@ -86,7 +86,7 @@ public class adoc2reveal implements Callable<Integer> {
     @Option(names = {"--open"}, description = "Open the generated presentation in the browser after render")
     private boolean open;
 
-    @Option(names = {"--port"}, defaultValue = "8080", description = "Port for the HTTP server (used with --serve)")
+    @Option(names = {"--port"}, defaultValue = "8181", description = "Port for the HTTP server (used with --serve)")
     private int port;
 
     @Option(names = "--verbose")
@@ -214,6 +214,18 @@ public class adoc2reveal implements Callable<Integer> {
         List<String> changed = drainChangedFiles();
         lastChangedFiles = changed;
 
+        // Clear diagram cache so diagrams always re-render
+        try {
+            Path cacheDir = rootDir().resolve(".asciidoctor/diagram");
+            if (Files.isDirectory(cacheDir)) {
+                try (var entries = Files.list(cacheDir)) {
+                    entries.filter(p -> p.toString().endsWith(".cache")).forEach(p -> {
+                        try { Files.delete(p); } catch (IOException ignored) {}
+                    });
+                }
+            }
+        } catch (IOException ignored) {}
+
         if (interactive) {
             enqueueMessage("rendering because " + reason + (changed.isEmpty() ? "" : " | changed: " + String.join(", ", changed)));
         } else {
@@ -314,7 +326,7 @@ public class adoc2reveal implements Callable<Integer> {
                     for (WatchEvent<?> event : key.pollEvents()) {
                         Path changed = (Path) event.context();
                         String name = changed.getFileName().toString();
-                        if (isIgnoredGeneratedOutput(name)) {
+                        if (isIgnoredGeneratedOutput(watchedDir, name)) {
                             if (verbose) {
                                 enqueueMessage("ignored generated output " + name + " [" + event.kind().name() + "]");
                             }
@@ -350,6 +362,28 @@ public class adoc2reveal implements Callable<Integer> {
         if (watchThread != null) {
             watchThread.interrupt();
             watchThread = null;
+        }
+    }
+
+    private void openEditor() {
+        String editor = System.getenv("VISUAL");
+        if (editor == null) {
+            editor = System.getenv("EDITOR");
+        }
+        if (editor == null) {
+            enqueueMessage("no editor found — set VISUAL or EDITOR env var");
+            return;
+        }
+        try {
+            Path dir = rootDir();
+            Path target = dir.resolve(file.getName());
+            new ProcessBuilder(editor, ".", target.toString())
+                    .directory(dir.toFile())
+                    .inheritIO()
+                    .start();
+            enqueueMessage("opened editor: " + editor + " . " + file.getName());
+        } catch (Exception e) {
+            enqueueMessage("editor launch failed: " + e.getMessage());
         }
     }
 
@@ -428,8 +462,16 @@ public class adoc2reveal implements Callable<Integer> {
         }
     }
 
-    private boolean isIgnoredGeneratedOutput(String name) {
-        return name.equals(outputName()) || name.equals("index.html") || name.endsWith(".html");
+    private boolean isIgnoredGeneratedOutput(Path watchedDir, String name) {
+        if (name.equals(outputName()) || name.equals("index.html") || name.endsWith(".html")) {
+            return true;
+        }
+        // Ignore diagram-generated images (SVG/PNG in imagesdir)
+        Path imagesDir = rootDir().resolve("images");
+        if (watchedDir.equals(imagesDir) && (name.endsWith(".svg") || name.endsWith(".png"))) {
+            return true;
+        }
+        return false;
     }
 
     private void requestRender(String reason) {
@@ -492,6 +534,10 @@ public class adoc2reveal implements Callable<Integer> {
                             showHelp = !showHelp;
                             return EventResult.HANDLED;
                         }
+                        if (event.isCharIgnoreCase('e')) {
+                            openEditor();
+                            return EventResult.HANDLED;
+                        }
                         if (event.isCharIgnoreCase('c')) {
                             statusMessages.clear();
                             return EventResult.HANDLED;
@@ -524,6 +570,7 @@ public class adoc2reveal implements Callable<Integer> {
                         text("s  toggle serve").cyan(),
                         text("o  open browser").cyan(),
                         text("h  help on/off").cyan(),
+                        text("e  open editor").cyan(),
                         text("c  clear log").cyan(),
                         text("q  quit").cyan()
                 )

@@ -9,6 +9,87 @@
 [.huge]
 The lower levels
 
+
+=== Backend
+
+Deal with the terminal directly. Escape sequences, raw mode, etc.
+
+[cols="^1,^1,^1,^1", options="header"]
+|===
+| Backend | `jline3` | `aesh` | `panama`
+| Speciality | The usual | SSH & Web | Direct native access
+| Java | 8+ |  8+ | 22+
+|===
+
+[.lead]
+Same API. Swap the backend. Works everywhere Java runs.
+
+
+=== The backend contract
+
+[source,java]
+----
+include::../snippets/lower/BackendDemo.java[tag=backend,indent=0]
+----
+
+=== Buffer, Cell, Rect
+
+[source,java]
+----
+include::../snippets/lower/BufferDemo.java[tag=buffer,indent=0]
+----
+
+=== Buffer → Cell → Style
+
+include::../diagrams/buffer-cell-style.adoc[]
+
+[.notes]
+--
+A symbol is a *String*, not a char — emoji & grapheme clusters 
+--
+
+=== Emoji, Unicode & grapheme clusters
+
+Yes, we support Unicode and grapheme clusters.
+
+`jbang unicode-demo@tamboui/tamboui`
+
+image::unicode-graphemes.png[Unicode, role=fullwidth, align=center]
+
+`jbang emoji-demo@tamboui/tamboui`
+
+=== Images
+
+`jbang image-demo@tamboui/tamboui`
+
+Seeing is believing!
+
+- Half-blocks
+- Braille
+- Sixel
+- Kitty
+- iTerm2
+- etc.
+
+=== Immediate Mode: the raw loop
+
+[source,java]
+----
+include::../snippets/lower/ImmediateDemo.java[tag=immediate,indent=0]
+----
+
+Every frame: clear, re-render everything, diff, push to terminal.
+
+=== Is it fast enough?
+
+`jbang colors-rgb-demo@tamboui/tamboui`
+
+Every cell changes on every frame.
+
+from 30 to 2000+ FPS on modern hardware/terminals.
+
+Terminal IO is the bottleneck, not the JVM.
+
 === Widget
 
 A widget is "something" that can be rendered to a terminal.
@@ -23,8 +104,8 @@ public interface StatefulWidget<S> {
     void render(Rect area, Buffer buffer, S state);
 }
 ----
-
-=== Widget Builders
+ 
+=== Widget Builders 
 
 [source,java]
 ----
@@ -33,44 +114,11 @@ include::../snippets/lower/WidgetExample.java[tag=widget-example,indent=0]
 
 Build & Render.
 
-
 [%notitle, background-iframe="https://tamboui.dev/docs/main/demos-widgets.html", background-interactive=true]
 === Widget Examples
 
 
-
-=== What's down there
-
-* **Backends**: VT/ANSI, raw mode, the OS-specific mess
-* **Buffer, Cell, Rect**: diff-based rendering primitives
-* **Layout + Widgets**: constraint-based flex, 20+ widgets out of the box
- 
-=== Talking to a terminal
-
-* Terminals speak **VT/ANSI escape sequences** +
-  `ESC[31m` → red, `ESC[2J` → clear screen...
-* Input: key events, mouse events, resize signals
-* Different on every OS and terminal emulator 🙃
-
-That's what the **backends** abstract away.
-
-=== The backend contract
-
-[source,java]
-----
-include::../snippets/lower/BackendDemo.java[tag=backend,indent=0]
-----
-
-AutoCloseable. Works with try-with-resources. Very Java.
-
-=== Core types: Buffer, Cell, Rect
-
-[source,java]
-----
-include::../snippets/lower/BufferDemo.java[tag=buffer,indent=0]
-----
-
-Diff-based rendering: only changed cells are sent to the terminal.
+=== Layout
 
 === Layout: constraints
 
@@ -81,22 +129,14 @@ include::../snippets/lower/LayoutDemo.java[tag=layout,indent=0]
 
 Flexbox-inspired. Responsive. No CSS headaches.
 
-=== Immediate Mode: the raw loop
+`jbang rflex-demo@tamboui/tamboui`
 
-[source,java]
-----
-include::../snippets/lower/ImmediateDemo.java[tag=immediate,indent=0]
-----
+=== Mouse
 
-Every frame: clear, re-render everything, diff, push to terminal.
 
-=== Widgets
 
-* `Paragraph`: styled text with wrapping
-* `List`: scrollable item lists
-* `Table`: tabular data with column constraints
-* `Gauge` / `LineGauge`: progress bars
-* `Chart`: sparklines, bar charts
-* `Canvas`: pixel-level drawing
-* `Image`: yes, actual images in the terminal
-* `Calendar`, `Spinner`, and more...
+=== Markup
+
+
+=== Testing
+

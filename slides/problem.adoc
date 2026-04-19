@@ -16,7 +16,7 @@ pass:[<div class="cricket">🦗</div>]
 Set up the irony. Java is everywhere, except where developers hang out and hack.
 --
 
-== The terminal renaissance
+=== The terminal renaissance
 
 * AI tools live in the terminal
 * Developer workflows are CLI-first again
@@ -26,7 +26,7 @@ Set up the irony. Java is everywhere, except where developers hang out and hack.
 
 All written in... everything but Java.
 
-== The old excuses
+=== The old excuses
 
 * "Java is too slow to start" → *Java is fast, GraalVM even faster. Milliseconds.*
 * "Too much ceremony" → *JBang: one command, run anything.*

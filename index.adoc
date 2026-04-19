@@ -31,9 +31,9 @@ include::slides/lower-level.adoc[]
 
 include::slides/higher-level.adoc[]
 
-//include::slides/css.adoc[]
+include::slides/css.adoc[]
 
-//include::slides/java-niceties.adoc[]
+include::slides/java-niceties.adoc[]
 
 include::slides/showcase.adoc[]
 
