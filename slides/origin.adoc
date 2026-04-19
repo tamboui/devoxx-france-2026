@@ -8,9 +8,23 @@
 [.huge]
 Origin story
 
-== How TamboUI was born
+[.columns]
+=== How TamboUI was born
 
-A Bluesky post. That's it.
+[.column]
+--
+++++
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:tsditnhgwsmg7ckowew3diu2/app.bsky.feed.post/3m7ulazaogt25" data-bluesky-cid="bafyreia7a3o4ko7txytiaawjz2lfgjpm5nb3a7r7wtdx3mbw6buimgnbty"><p lang="en">What impresses me most with Claude is its command-line interface. Building interactive CLI interfaces with ANSI escape codes is usually a big pain. Any idea what it uses under the hood? The UX is quite fantastic.</p>&mdash; <a href="https://bsky.app/profile/did:plc:tsditnhgwsmg7ckowew3diu2?ref_src=embed">Cédric Champeau (@melix.champeau.me)</a> <a href="https://bsky.app/profile/did:plc:tsditnhgwsmg7ckowew3diu2/post/3m7ulazaogt25?ref_src=embed">Dec 13, 2025</a></blockquote>
+++++
+--
+
+[.column]
+--
+++++
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:patay43zm6erqb6ph6emtojb/app.bsky.feed.post/3m7un57os7s2f" data-bluesky-cid="bafyreifbiicvjyw4oisuwdo7az5iq5q65man3kbqszziinv45dtfh6jmay"><p lang="en">If go it’s charm, if python rich/textua, rust it’s ratatui</p>&mdash; <a href="https://bsky.app/profile/did:plc:patay43zm6erqb6ph6emtojb?ref_src=embed">Max Rydahl Andersen (@maxandersen.xam.dk)</a> <a href="https://bsky.app/profile/did:plc:patay43zm6erqb6ph6emtojb/post/3m7un57os7s2f?ref_src=embed">Dec 13, 2025</a></blockquote>
+<script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+++++
+--
 
 [NOTE.speaker]
 --
@@ -18,16 +32,16 @@ Cédric tells the story: asked what TUI library Claude Code uses. Max answered: 
 Both thought: "it's a bit sad there's no such library for Java." And then... we built it.
 --
 
-[quote, Cédric Champeau, Bluesky]
-____
-Which TUI library is Claude Code using?
-____
+=== 6 days later...
 
-→ Max: "Probably Ratatui. It's Rust." +
-→ Both: "...why isn't there a Java equivalent?" +
-→ _[3 months of coding later]_
+++++
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:tsditnhgwsmg7ckowew3diu2/app.bsky.feed.post/3mae3pyw4ek25" data-bluesky-cid="bafyreihxxhp6jvr2sme5iubgipgnhsp2iso2bsg2vhz2xqlhzdzgrp3d2m"><p lang="en">I am mind blown. I asked Claude to port Ratatui to Java, using Gradle, create a demo app and compile it to a native binary. It took 20 minutes. Here&#39;s the demo (this is a native binary compiled using GraalVM using the official native build tools plugin). 🫳🎤
 
-== tamboui.dev
+/cc @glaforge.dev @maxandersen.xam.dk</p>&mdash; <a href="https://bsky.app/profile/did:plc:tsditnhgwsmg7ckowew3diu2?ref_src=embed">Cédric Champeau (@melix.champeau.me)</a> <a href="https://bsky.app/profile/did:plc:tsditnhgwsmg7ckowew3diu2/post/3mae3pyw4ek25?ref_src=embed">Dec 19, 2025</a></blockquote>
+<script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+++++
+
+=== tamboui.dev
 
 image::tamboui_logo_vertical_gradient.svg[TamboUI logo, width=300]
 

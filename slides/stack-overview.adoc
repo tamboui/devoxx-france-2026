@@ -8,25 +8,29 @@
 [.huge]
 The stack
 
-== Three layers, one stack
+=== Three layers, one stack
 
-[cols="^1,^1,^1", options="header"]
+[cols="^1,^4", options="header"]
 |===
-| High Level | Mid Level | Low Level
-| **Toolkit DSL** | **TuiRunner** | **Immediate Mode**
-| Declarative, CSS, focus mgmt | Managed event loop | You own everything
+| Layer | What
+
+| **High** | **Toolkit**: Declarative, CSS, focus mgmt
+| **Mid** | **TuiRunner**: Managed event loop
+| **Low** | **Immediate Mode**: You own everything
 |===
 
 [.lead]
 Pick what fits your style. Or go all the way down.
 
-== Three backends
+=== Runs anywhere
+
+
 
 [cols="^1,^1,^1", options="header"]
 |===
-| JLine 3 | Panama | Aesh
-| Widest compatibility | Direct native access | Red Hat pedigree
-| Java 8+ | Java 22+ | Java 8+
+| JLine 3 | Æsh | Panama
+| The usual | SSH & Web | Direct native access
+| Java 8+ | Java 8+ | Java 22+
 |===
 
 [.lead]

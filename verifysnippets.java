@@ -19,8 +19,7 @@
  * every code sample shown on stage actually compiles against the
  * real TamboUI APIs.
  */
-class verify_snippets {
-    public static void main(String[] args) {
+void main() {
         System.out.println("All slide snippets compiled successfully.");
-    }
 }
+
