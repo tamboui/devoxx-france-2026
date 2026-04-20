@@ -37,6 +37,7 @@ import picocli.CommandLine.Parameters;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.file.FileSystems;
@@ -44,6 +45,7 @@ import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
@@ -94,6 +96,12 @@ public class adoc2reveal implements Callable<Integer> {
 
     @Option(names = {"--revealjsdir"}, defaultValue = "https://cdn.jsdelivr.net/npm/reveal.js@5.2.0", description = "revealjs directory or base url")
     String revealjsdir;
+
+    @Option(names = {"-o", "--output-dir"}, defaultValue = "_presentation", description = "Directory where generated HTML and assets are written (kept separate from the sources)")
+    String outputDirName;
+
+    /** Directories mirrored from the source root into the output dir so relative asset URLs resolve. */
+    private static final List<String> MIRRORED_ASSET_DIRS = List.of("images", "css");
 
     private Asciidoctor asciidoctor;
     private WatchService watchService;
@@ -176,8 +184,16 @@ public class adoc2reveal implements Callable<Integer> {
         return file.getName().replaceFirst("\\.adoc$", ".html");
     }
 
+    private Path outputDir() {
+        Path candidate = Path.of(outputDirName);
+        if (!candidate.isAbsolute()) {
+            candidate = rootDir().resolve(candidate);
+        }
+        return candidate.toAbsolutePath().normalize();
+    }
+
     private Path outputFile() {
-        return rootDir().resolve(outputName());
+        return outputDir().resolve(outputName());
     }
 
     private String currentUrl() {
@@ -196,16 +212,46 @@ public class adoc2reveal implements Callable<Integer> {
     }
 
     private void registerRecursive(final Path root) throws IOException {
+        final Path outDir = outputDir();
         Files.walkFileTree(root, new SimpleFileVisitor<>() {
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                if (!dir.getFileName().toString().startsWith(".")) {
-                    dir.register(watchService, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
-                    return FileVisitResult.CONTINUE;
+                String name = dir.getFileName() == null ? "" : dir.getFileName().toString();
+                if (name.startsWith(".")) {
+                    return FileVisitResult.SKIP_SUBTREE;
                 }
-                return FileVisitResult.SKIP_SUBTREE;
+                if (dir.toAbsolutePath().normalize().equals(outDir)) {
+                    return FileVisitResult.SKIP_SUBTREE;
+                }
+                dir.register(watchService, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
+                return FileVisitResult.CONTINUE;
             }
         });
+    }
+
+    private void mirrorDir(Path from, Path to) throws IOException {
+        if (!Files.isDirectory(from)) {
+            return;
+        }
+        Files.createDirectories(to);
+        try (var walk = Files.walk(from)) {
+            walk.forEach(src -> {
+                try {
+                    Path rel = from.relativize(src);
+                    Path dest = to.resolve(rel.toString());
+                    if (Files.isDirectory(src)) {
+                        Files.createDirectories(dest);
+                    } else {
+                        Files.createDirectories(dest.getParent());
+                        Files.copy(src, dest, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
+                    }
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            });
+        } catch (UncheckedIOException e) {
+            throw e.getCause();
+        }
     }
 
     private synchronized void doRender(String reason) {
@@ -213,6 +259,14 @@ public class adoc2reveal implements Callable<Integer> {
         lastRenderReason = reason;
         List<String> changed = drainChangedFiles();
         lastChangedFiles = changed;
+
+        Path outDir = outputDir();
+        try {
+            Files.createDirectories(outDir);
+        } catch (IOException e) {
+            enqueueMessage("failed to create output dir " + outDir + ": " + e.getMessage());
+            return;
+        }
 
         // Clear diagram cache so diagrams always re-render
         try {
@@ -226,10 +280,21 @@ public class adoc2reveal implements Callable<Integer> {
             }
         } catch (IOException ignored) {}
 
+        // Mirror static asset dirs from source into the output dir so relative URLs resolve
+        for (String name : MIRRORED_ASSET_DIRS) {
+            Path from = rootDir().resolve(name);
+            Path to = outDir.resolve(name);
+            try {
+                mirrorDir(from, to);
+            } catch (IOException e) {
+                enqueueMessage("asset sync failed for " + name + ": " + e.getMessage());
+            }
+        }
+
         if (interactive) {
             enqueueMessage("rendering because " + reason + (changed.isEmpty() ? "" : " | changed: " + String.join(", ", changed)));
         } else {
-            System.out.printf("Start Rendering %s (%s)%n", file, reason);
+            System.out.printf("Start Rendering %s -> %s (%s)%n", file, outDir, reason);
             if (!changed.isEmpty()) {
                 System.out.println("Changed: " + String.join(", ", changed));
             }
@@ -239,9 +304,12 @@ public class adoc2reveal implements Callable<Integer> {
                 Options.builder()
                         .backend("revealjs")
                         .safe(SafeMode.UNSAFE)
+                        .toDir(outDir.toFile())
+                        .mkDirs(true)
                         .attributes(
                                 Attributes.builder()
                                         .attribute("revealjsdir", revealjsdir)
+                                        .attribute("imagesoutdir", outDir.resolve("images").toString())
                                         .build()
                         ).build()
         );
@@ -291,9 +359,11 @@ public class adoc2reveal implements Callable<Integer> {
         }
         var address = new InetSocketAddress(port);
         try {
+            Path outDir = outputDir();
+            Files.createDirectories(outDir);
             httpServer = SimpleFileServer.createFileServer(
                     address,
-                    rootDir(),
+                    outDir,
                     SimpleFileServer.OutputLevel.NONE);
             httpServer.start();
             enqueueMessage("serving at " + currentUrl());
@@ -463,15 +533,9 @@ public class adoc2reveal implements Callable<Integer> {
     }
 
     private boolean isIgnoredGeneratedOutput(Path watchedDir, String name) {
-        if (name.equals(outputName()) || name.equals("index.html") || name.endsWith(".html")) {
-            return true;
-        }
-        // Ignore diagram-generated images (SVG/PNG in imagesdir)
-        Path imagesDir = rootDir().resolve("images");
-        if (watchedDir.equals(imagesDir) && (name.endsWith(".svg") || name.endsWith(".png"))) {
-            return true;
-        }
-        return false;
+        // Output lives in outputDir() which is skipped by the watcher, but a stale
+        // pre-split .html sitting in the source root should still be ignored.
+        return name.endsWith(".html");
     }
 
     private void requestRender(String reason) {
@@ -554,6 +618,7 @@ public class adoc2reveal implements Callable<Integer> {
                 column(
                         row(text("File").gray(), spacer(), text(file.getName()).cyan().bold()),
                         row(text("Output").gray(), spacer(), text(outputName()).green().bold()),
+                        row(text("Out dir").gray(), spacer(), text(rootDir().relativize(outputDir()).toString()).green()),
                         row(text("URL").gray(), spacer(), text(currentUrl()).yellow()),
                         row(text("Mode").gray(), spacer(), text(modeText()).magenta()),
                         row(text("Render").gray(), spacer(), text("#" + renderCount + "  " + formatNanos(lastRenderNanos)).white()),
