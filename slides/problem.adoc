@@ -20,9 +20,9 @@ Set up the irony. Java is everywhere, except where developers hang out and hack.
 
 * AI tools live in the terminal
 * Developer workflows are CLI-first again
-* Rust has **Ratatui**
-* Python has **Textual**/**Rich**
 * Go has **Charm** / Bubble Tea
+* Python has **Textual**/**Rich**
+* Rust has **Ratatui**
 
 All written in... everything but Java.
 
@@ -31,6 +31,6 @@ All written in... everything but Java.
 * "Java is too slow to start" → *Java is fast, GraalVM even faster. Milliseconds.*
 * "Too much ceremony" → *JBang: one command, run anything.*
 * "Distribution is a nightmare" → *JReleaser: one command, everywhere.*
-* "Not good for scripting" → *Modern Java disagrees.*
+* "Too verbose!" → *Modern Java disagrees.*
 
 Every excuse you've been telling yourself? **Outdated.**

@@ -11,22 +11,6 @@ Showcases
 [.lead]
 Imagine it - Make it
 
-== Showcases, all runnable with JBang
-
-[.lead]
-A tour of what the stack can do today.
-
-* **Fakodex**: Claude Code-style chat UI with inline tool calls
-* **TextVM**: VisualVM-inspired JVM process inspector
-* **File manager**: two-pane, keyboard-driven, MVC
-* **Menu**: menu bar with dropdowns and keyboard shortcuts
-* **Toolkit export**: export a UI region to SVG or HTML
-
-[NOTE.speaker]
---
-Live-run Fakodex and TextVM via jbang. Those two land the "this is not a toy" point.
---
-
 [.columns]
 === Pilot
 

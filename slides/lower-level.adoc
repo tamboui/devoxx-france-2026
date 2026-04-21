@@ -137,14 +137,6 @@ Yes, terminals support mouse input, so does TamboUI.
 
 `jbang toolkit-demo@tamboui/tamboui`
 
-=== Markup
-
-BBCode-like markup.
-
-`jbang richtext-demo@tamboui/tamboui`
-
-Future: syntax highlighting editor, MarkDown viewer, etc.
-
 === ...and more
 
 Testing: AssertJ builders, Blackbox Pilot guided testing
@@ -152,6 +144,8 @@ Testing: AssertJ builders, Blackbox Pilot guided testing
 Screenshots: Export buffer/rect to SVG, HTML, text, asciinema
 
 TFX: animations, transitions, etc.
+
+`jbang tfx-demo@tamboui/tamboui`
 
 
 

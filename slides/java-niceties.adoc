@@ -6,7 +6,7 @@
 == !
 
 [.huge]
-GraalVM + JFR
+GraalVM 
 
 === GraalVM native
 
@@ -18,15 +18,3 @@ GraalVM + JFR
 
 TamboUI ships the GraalVM reachability metadata. +
 Zero config for reflection, resources, serialization.
-
-=== JFR tracing
-
-[source,bash]
-----
-jcmd <pid> JFR.start name=tamboui \
-    settings=profile duration=60s filename=tamboui.jfr
-----
-
-Events: `dev.tamboui.terminal.draw`, `dev.tamboui.toolkit.route`, +
-focus changes, drag state, event routing… +
-Profile your TUI like any other Java app.
