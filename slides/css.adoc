@@ -27,8 +27,12 @@ Style your TUI like you style the web.
 .item:selected  { background: #005fd7; color: white; text-style: bold; }
 ----
 
-Selectors, pseudo-classes, variables, themes. +
-Your can edit a `.tcss` file while the app is running!
+Selectors, pseudo-classes, variables, etc.
+
+[source,bash]
+----
+jbang richtext-demo@tamboui/tamboui
+----
 
 === Themes: load and switch at runtime
 
@@ -38,3 +42,15 @@ include::../snippets/toolkit/CssDemo.java[tag=css,indent=0]
 ----
 
 No recompile. No restart. Hot-swap live.
+
+[source,bash]
+----
+jbang css-demo@tamboui/tamboui
+----
+
+=== Combines with TFX!
+
+[source,bash]
+----
+jbang tfx-toolkit-demo@tamboui/tamboui
+----
