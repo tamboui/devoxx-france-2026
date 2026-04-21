@@ -78,7 +78,7 @@ Seeing is believing!
 include::../snippets/lower/ImmediateDemo.java[tag=immediate,indent=0]
 ----
 
-Every frame: clear, re-render everything, diff, push to terminal.
+Every frame: render everything, diff & push to terminal.
 
 === Is it fast enough?
 
@@ -133,10 +133,26 @@ Flexbox-inspired. Responsive. No CSS headaches.
 
 === Mouse
 
+Yes, terminals support mouse input, so does TamboUI.
 
+`jbang toolkit-demo@tamboui/tamboui`
 
 === Markup
 
+BBCode-like markup.
 
-=== Testing
+`jbang richtext-demo@tamboui/tamboui`
+
+Future: syntax highlighting editor, MarkDown viewer, etc.
+
+=== ...and more
+
+Testing: AssertJ builders, Blackbox Pilot guided testing
+
+Screenshots: Export buffer/rect to SVG, HTML, text, asciinema
+
+TFX: animations, transitions, etc.
+
+
+
 

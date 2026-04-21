@@ -6,9 +6,12 @@
 == !
 
 [.huge]
-Demos
+Showcases
 
-== Demos, all runnable with JBang
+[.lead]
+Imagine it - Make it
+
+== Showcases, all runnable with JBang
 
 [.lead]
 A tour of what the stack can do today.
@@ -25,7 +28,7 @@ Live-run Fakodex and TextVM via jbang. Those two land the "this is not a toy" po
 --
 
 [.columns]
-== Pilot
+=== Pilot
 
 [.column]
 --
@@ -57,7 +60,7 @@ Great example of a real Java TUI that is not a toy: it starts from a concrete wo
 --
 
 [.columns]
-== JFR Shell
+=== JFR Shell
 
 [.column]
 --
@@ -89,7 +92,7 @@ Same idea as Pilot: take a very real expert workflow and make it interactive ins
 --
 
 [.columns]
-== jskills
+=== jskills
 
 [.column]
 --
@@ -118,7 +121,7 @@ Nice example that not every terminal app needs to be a giant dashboard: even a f
 --
 
 [.columns]
-== jabtop
+=== jabtop
 
 [.column]
 --
@@ -147,7 +150,65 @@ image::jabtop-screenshot.svg[jabtop screenshot, width=560]
 A great example of a practical Java TUI for the AI era: it watches multiple agent sessions at once and surfaces the things you actually care about while working.
 --
 
-== Try the demos
+[.columns]
+=== JTop
+
+[.column]
+--
+[.lead]
+System monitor demo.
+
+https://github.com/tamboui/tamboui[github.com/tamboui/tamboui]
+
+[source,bash]
+----
+jbang jtop-demo@tamboui
+----
+
+* CPU, memory, process list
+* Toggle views and sort modes
+--
+
+[.column]
+--
+image::jtop-demo.png[JTop demo, width=560]
+--
+
+[NOTE.speaker]
+--
+This one shows the classic dashboard use case: rich layout, live updates, charts, and tables all in one terminal screen.
+--
+
+[.columns]
+=== File manager
+
+[.column]
+--
+[.lead]
+Two-pane file manager demo.
+
+https://github.com/tamboui/tamboui[github.com/tamboui/tamboui]
+
+[source,bash]
+----
+jbang filemanager-demo@tamboui
+----
+
+* Two-pane, keyboard-driven UI
+* MVC architecture in practice
+--
+
+[.column]
+--
+image::filemanager-demo.png[File manager demo, width=560]
+--
+
+[NOTE.speaker]
+--
+A nice proof that Java can do old-school utility apps too, not just dashboards: split panes, focus, navigation, dialogs, and file operations.
+--
+
+=== Try the demos
 
 [source,bash]
 ----
