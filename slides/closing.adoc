@@ -9,8 +9,8 @@
 * 🌍 **Distribute it**: JBang for quick runs, JReleaser for releases
 * ⭐ **Contribute**: it's experimental, APIs will change, feedback welcome
 
-We need our *ratatui moment*. +
-This is it.
+Meet the TamboUI team: https://m.devoxx.com/events/devoxxfr2026/talks/165201/meet-with-tamboui[Paris 142, 17:00-18:30, today]
+
 
 [%notitle]
 == !
