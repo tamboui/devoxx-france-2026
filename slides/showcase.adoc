@@ -24,6 +24,129 @@ A tour of what the stack can do today.
 Live-run Fakodex and TextVM via jbang. Those two land the "this is not a toy" point.
 --
 
+[.columns]
+== Pilot
+
+[.column]
+--
+[.lead]
+Interactive TUI for Maven.
+
+https://github.com/maveniverse/pilot[github.com/maveniverse/pilot]
+
+[source,bash]
+----
+jbang pilot@maveniverse/pilot
+----
+
+* Search, tree, updates
+* Audit licenses + CVEs
+* Edit `pom.xml` without leaving the terminal
+--
+
+[.column]
+--
+image::pilot-tree.svg[Dependency tree, width=520]
+
+image::pilot-audit-vulns.svg[Security audit, width=520]
+--
+
+[NOTE.speaker]
+--
+Great example of a real Java TUI that is not a toy: it starts from a concrete workflow Maven users already have, then turns painful text output into an interactive workspace.
+--
+
+[.columns]
+== JFR Shell
+
+[.column]
+--
+[.lead]
+JFR analysis without scroll hell.
+
+https://github.com/btraceio/jafar[github.com/btraceio/jafar]
+
+[source,bash]
+----
+jbang jafar-shell@btraceio --tui
+----
+
+* Query JFR recordings in a full-screen TUI
+* Sort, filter, and inspect rows without losing context
+* Tabs, completion, history, export
+--
+
+[.column]
+--
+image::jfr-shell-overview.png[JFR Shell overview, width=520]
+
+image::jfr-shell-browser.png[JFR Shell tree view, width=520]
+--
+
+[NOTE.speaker]
+--
+Same idea as Pilot: take a very real expert workflow and make it interactive instead of forcing people to scroll through walls of terminal output.
+--
+
+[.columns]
+== jskills
+
+[.column]
+--
+[.lead]
+Discover and install agent skills.
+
+https://github.com/maxandersen/jskills[github.com/maxandersen/jskills]
+
+[source,bash]
+----
+jbang skills@maxandersen/jskills find
+----
+
+* Search and install agent skills
+* No Node.js required
+--
+
+[.column]
+--
+image::jskills-find.svg[jskills find screen, width=520]
+--
+
+[NOTE.speaker]
+--
+Nice example that not every terminal app needs to be a giant dashboard: even a focused CLI command becomes much more approachable when packaged cleanly and shown with a strong terminal UX.
+--
+
+[.columns]
+== jabtop
+
+[.column]
+--
+[.lead]
+AI agent monitor.
+
+https://github.com/maxandersen/jabtop[github.com/maxandersen/jabtop]
+
+[source,bash]
+----
+jbang app install abtop@maxandersen/jabtop
+----
+
+* Claude Code, Codex CLI, pi.dev, opencode
+* Tokens, context, rate limits
+* Jump to tmux/zellij panes
+--
+
+[.column]
+--
+image::jabtop-screenshot.svg[jabtop screenshot, width=560]
+--
+
+[NOTE.speaker]
+--
+A great example of a practical Java TUI for the AI era: it watches multiple agent sessions at once and surfaces the things you actually care about while working.
+--
+
 == Try the demos
 
 [source,bash]
