@@ -45,27 +45,15 @@ include::../snippets/tui/TuiRunnerConfigDemo.java[tag=config,indent=0]
 `scheduleAtFixedRate` runs on the scheduler thread. +
 Use `tui.runOnRenderThread(...)` to mutate UI state safely.
 
-=== Runner error handling
-
-[source,java]
-----
-include::../snippets/tui/ErrorHandlerDemo.java[tag=error,indent=0]
-----
-
-Exception in a widget? The framework catches it, renders a
-*scrollable stack trace inside your TUI*, and exits cleanly. +
-No mysterious "terminal stuck in raw mode" after a crash.
-
 // ─────────────────────────────────────────────
 // Toolkit DSL
 // ─────────────────────────────────────────────
 
 === Toolkit: build apps, not plumbing
 
-With TuiRunner you still render frame-by-frame. +
-Toolkit gives you a DSL so you describe *what*, not *how*:
+Declarative UI
 
-* `text()`, `panel()`, `row()`, `column()`, `list()`, `markupText()`, ...
+* Component based model
 * Automatic **focus management** (Tab / Shift+Tab)
 * Automatic **event routing** to the focused element
 * `@OnAction` handlers: bind keys without wiring
