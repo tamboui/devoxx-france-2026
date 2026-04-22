@@ -27,15 +27,9 @@ jobs:
           distribution: temurin
           java-version: '25'
 
-      - name: Setup JBang
-        uses: jbangdev/setup-jbang@v0.1.1
-        with:
-          version: latest
-          setup-java: false
-
       - name: Render slides
         run: |
-          jbang adoc2reveal.java index.adoc
+          ./jbang adoc2reveal.java index.adoc
 
       - name: Prepare Pages artifact
         run: |
