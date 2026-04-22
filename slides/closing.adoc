@@ -2,29 +2,15 @@
 // CALL TO ACTION + CLOSING
 // ─────────────────────────────────────────────
 
-== The ecosystem needs you
+== Make 2026 the year of Java in the terminal
 
 * 🔨 **Build something**: a dashboard, a log viewer, an AI chat interface
 * 📝 **Blog about it**: show the world Java can do this
 * 🌍 **Distribute it**: JBang for quick runs, JReleaser for releases
 * ⭐ **Contribute**: it's experimental, APIs will change, feedback welcome
 
+[%step]
+❓ **Questions?**
+
+[%step]
 Meet the TamboUI team: https://m.devoxx.com/events/devoxxfr2026/talks/165201/meet-with-tamboui[Paris 142, 17:00-18:30, today]
-
-
-[%notitle]
-== !
-
-[.huge]
-tamboui.dev
-
-[.lead]
-`jbang demos@tamboui`
-
-[.small]
-github.com/tamboui/tamboui
-
-[NOTE.speaker]
---
-End with energy. "2026 IS the year. Let's go."
---
