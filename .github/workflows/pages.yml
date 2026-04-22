@@ -30,19 +30,10 @@ jobs:
       - name: Render slides
         run: |
           ./jbang adoc2reveal.java index.adoc
-
-      - name: Prepare Pages artifact
-        run: |
-          rm -rf dist
-          mkdir -p dist
-          cp index.html dist/
-          cp -R css dist/
-          cp -R images dist/
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: _presentation
 
   deploy:
     needs: build
